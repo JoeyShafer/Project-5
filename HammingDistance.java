@@ -64,8 +64,8 @@ public class HammingDistance {
 		return numStations;
 	}
 	
-	public void addStation() {
-		
+	public void addStation(String stid) {
+		stations.add(stid.toUpperCase());
 	}
 	
 	
