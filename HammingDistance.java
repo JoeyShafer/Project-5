@@ -29,11 +29,17 @@ public class HammingDistance {
 	}
 	
 	public ArrayList<String> stationsWithHammingDist(String stid, int hammingDist) {
+		//ArrayList that will hold the station id of the stations that share a given hamming dist
 		ArrayList<String> stationsWith = new ArrayList<String>();
 		int comparedHammDist;
+		
+		//Loop through the stations array and compare Hamming dist, if they match add station to
+		// stationsWith array
 		for (String s : stations) {
+			//Find the hamming distance 
 			comparedHammDist = findHammingDist(stid, s);
 			
+			//if hamming dist match add to stationsWith array
 			if (comparedHammDist == hammingDist) {
 				stationsWith.add(s);
 			}
