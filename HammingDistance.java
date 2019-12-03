@@ -9,8 +9,6 @@ public class HammingDistance {
 	
 	private ArrayList<String> stations = new ArrayList<String>();
 	
-
-	
 	public HammingDistance() throws IOException {
 		read();
 	}
@@ -51,9 +49,14 @@ public class HammingDistance {
 	public int numberOfStationsWithHammingDist(String stid, int hammingDist) {
 		int numStations = 0;
 		int comparedHammDist;
+		
+		// Loop through stations array comparing hammming dist if the hamming dist match
+		// increase numStations
 		for (String s : stations) {
+			// Find the Hamming Dist
 			comparedHammDist = findHammingDist(stid, s);
 			
+			//if hamming dist match increase numstations.
 			if (comparedHammDist == hammingDist) {
 				++numStations;
 			}
