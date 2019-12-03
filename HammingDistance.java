@@ -42,8 +42,17 @@ public class HammingDistance {
 		return stationsWith;
 	}
 	
-	public int numberOfStationsWithHammingDist(int hammingDist) {
-		return 0;
+	public int numberOfStationsWithHammingDist(String stid, int hammingDist) {
+		int numStations = 0;
+		int comparedHammDist;
+		for (String s : stations) {
+			comparedHammDist = findHammingDist(stid, s);
+			
+			if (comparedHammDist == hammingDist) {
+				++numStations;
+			}
+		}
+		return numStations;
 	}
 	
 	public void addStation() {
