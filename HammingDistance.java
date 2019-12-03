@@ -96,7 +96,7 @@ public class HammingDistance {
        while (strg != null) {
        
        	// Get the station Id from the line and add to staion array.
-       	String stationID = strg.substring(2,6);
+       	String stationID = strg;
        	stations.add(stationID);
        	
        	//Read next line and increase lineNum and index.
