@@ -7,10 +7,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -38,6 +39,10 @@ public class Main extends Application {
 			slider.setShowTickLabels(true);
 			slider.setShowTickMarks(true);
 			
+			Button showStation = new Button("Show Station");
+			ListView<String> listStations = new ListView<String>();
+			Label compareWith = new Label("Compare with:");
+			
 			
 			/*
 			 * When the slider is moved the value hammingDist will be changed to value 
@@ -56,6 +61,9 @@ public class Main extends Application {
 			gridPane.add(slider, 0,1);
 			gridPane.add(hammingDistance, 0, 0);
 			gridPane.add(hammingDistField, 1, 0);
+			gridPane.add(showStation, 0, 2);
+			gridPane.add(listStations, 0, 3);
+			gridPane.add(compareWith, 0, 4);
 			gridPane.setPadding(gridPadding);
 			gridPane.setHgap(5);
 			gridPane.setVgap(10);
