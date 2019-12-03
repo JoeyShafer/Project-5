@@ -68,6 +68,10 @@ public class HammingDistance {
 		stations.add(stid.toUpperCase());
 	}
 	
+	public ArrayList<String> getStations() {
+		return stations;
+	}
+	
 	
 	/*
 	 * Loads a list of station Id's from a txt file. Each line repersents one station.
