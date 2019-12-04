@@ -141,6 +141,18 @@ public class Main extends Application {
 				}
 			});
 			
+			addStation.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					String newStid = stationToAdd.getText();
+					hammDistance.addStation(newStid);
+					stations.getItems().add(newStid.toUpperCase());
+					stationToAdd.clear();
+				}
+			});
+			
+			
+			
 			
 			
 			gridPane.add(slider, 0,1);
