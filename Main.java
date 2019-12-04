@@ -124,6 +124,23 @@ public class Main extends Application {
 				}
 			});
 			
+			calculateHD.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					String stid = (String)stations.getValue();
+					distanceField0.setText(Integer.toString(
+							hammDistance.numberOfStationsWithHammingDist(stid, 0)));
+					distanceField1.setText(Integer.toString(
+							hammDistance.numberOfStationsWithHammingDist(stid, 1)));
+					distanceField2.setText(Integer.toString(
+							hammDistance.numberOfStationsWithHammingDist(stid, 2)));
+					distanceField3.setText(Integer.toString(
+							hammDistance.numberOfStationsWithHammingDist(stid, 3)));
+					distanceField4.setText(Integer.toString(
+							hammDistance.numberOfStationsWithHammingDist(stid, 4)));
+				}
+			});
+			
 			
 			
 			gridPane.add(slider, 0,1);
@@ -133,21 +150,22 @@ public class Main extends Application {
 			gridPane.add(listStations, 0, 3);
 			gridPane.add(compareWith, 0, 4);
 			gridPane.add(stations, 1, 4);
-			gridPane.add(distance0, 0, 5);
-			gridPane.add(distance1, 0, 6);
-			gridPane.add(distance2, 0, 7);
-			gridPane.add(distance3, 0, 8);
-			gridPane.add(distance4, 0, 9);
-			gridPane.add(distanceField0, 1, 5);
-			gridPane.add(distanceField1, 1, 6);
-			gridPane.add(distanceField2, 1, 7);
-			gridPane.add(distanceField3, 1, 8);
-			gridPane.add(distanceField4, 1, 9);
-			gridPane.add(addStation, 0, 10);
-			gridPane.add(stationToAdd, 1, 10);
+			gridPane.add(calculateHD, 0, 5);
+			gridPane.add(distance0, 0, 6);
+			gridPane.add(distance1, 0, 7);
+			gridPane.add(distance2, 0, 8);
+			gridPane.add(distance3, 0, 9);
+			gridPane.add(distance4, 0, 10);
+			gridPane.add(distanceField0, 1, 6);
+			gridPane.add(distanceField1, 1, 7);
+			gridPane.add(distanceField2, 1, 8);
+			gridPane.add(distanceField3, 1, 9);
+			gridPane.add(distanceField4, 1, 10);
+			gridPane.add(addStation, 0, 11);
+			gridPane.add(stationToAdd, 1, 11);
 			gridPane.setPadding(gridPadding);
 			gridPane.setHgap(5);
-			gridPane.setVgap(10);
+			gridPane.setVgap(5);
 			
 			
 			
