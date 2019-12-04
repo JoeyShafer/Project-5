@@ -26,7 +26,20 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	// Int value that stores the hamming distance from the slider.
 	private int hammingDist;
+	
+	// ArrayList that stores all the station ids.
 	private ArrayList<String> stationList;
+	
+	private Label hammingDistance;
+	private Label compareWith;
+	private TextField hammingDistField;
+	private Slider slider;
+	private Button showStation;
+	private Button calculateHD;
+	private ListView<String> listStations;
+	private ChoiceBox stations;
+	
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -36,26 +49,41 @@ public class Main extends Application {
 			Insets gridPadding = new Insets(10, 10, 10, 10);
 			
 			// Label and TextField that show the hamming distance entered from the slider
-			Label hammingDistance = new Label("Enter Hamming Dist:");
-			TextField hammingDistField = new TextField();
+			hammingDistance = new Label("Enter Hamming Dist:");
+			hammingDistField = new TextField();
 			
 			// create hamming distance slider
-			Slider slider = new Slider(1,4,1);
+			slider = new Slider(1,4,1);
 			slider.setMajorTickUnit(1);
 			slider.setMinorTickCount(0);
 			slider.setSnapToTicks(true);
 			slider.setShowTickLabels(true);
 			slider.setShowTickMarks(true);
 			
-			Button showStation = new Button("Show Station");
-			ListView<String> listStations = new ListView<String>();
-			Label compareWith = new Label("Compare with:");
-			ChoiceBox stations = new ChoiceBox();
+			showStation = new Button("Show Station");
+			listStations = new ListView<String>();
+			compareWith = new Label("Compare with:");
+			stations = new ChoiceBox();
+			calculateHD = new Button("Calculate HD");
+			Label distance0 = new Label("Distance 0");
+			Label distance1 = new Label("Distance 1");
+			Label distance2 = new Label("Distance 2");
+			Label distance3 = new Label("Distance 3");
+			Label distance4 = new Label("Distance 4");
+			TextField distanceField0 = new TextField();
+			TextField distanceField1 = new TextField();
+			TextField distanceField2 = new TextField();
+			TextField distanceField3 = new TextField();
+			TextField distanceField4 = new TextField();
+			Button addStation = new Button("Add Station");
+			TextField stationToAdd = new TextField();
+			
 			
 			
 			//create a HammingDistance Object
 			HammingDistance hammDistance = new HammingDistance();
 			
+			// Add all the stations to the ChoiceBox
 			stationList = hammDistance.getStations();
 			for (String s : stationList) {
 				stations.getItems().add(s);
@@ -105,6 +133,18 @@ public class Main extends Application {
 			gridPane.add(listStations, 0, 3);
 			gridPane.add(compareWith, 0, 4);
 			gridPane.add(stations, 1, 4);
+			gridPane.add(distance0, 0, 5);
+			gridPane.add(distance1, 0, 6);
+			gridPane.add(distance2, 0, 7);
+			gridPane.add(distance3, 0, 8);
+			gridPane.add(distance4, 0, 9);
+			gridPane.add(distanceField0, 1, 5);
+			gridPane.add(distanceField1, 1, 6);
+			gridPane.add(distanceField2, 1, 7);
+			gridPane.add(distanceField3, 1, 8);
+			gridPane.add(distanceField4, 1, 9);
+			gridPane.add(addStation, 0, 10);
+			gridPane.add(stationToAdd, 1, 10);
 			gridPane.setPadding(gridPadding);
 			gridPane.setHgap(5);
 			gridPane.setVgap(10);
