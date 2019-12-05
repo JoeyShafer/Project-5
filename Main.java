@@ -4,8 +4,6 @@ package application;
 
 import java.util.ArrayList;
 
-
-
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,6 +11,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -32,13 +34,35 @@ public class Main extends Application {
 	
 	private Label hammingDistance;
 	private Label compareWith;
+	private Label distance0;
+	private Label distance1;
+	private Label distance2;
+	private Label distance3;
+	private	Label distance4;
+	
 	private TextField hammingDistField;
+	private TextField distanceField0;
+	private TextField distanceField1;
+	private TextField distanceField2;
+	private TextField distanceField3;
+	private TextField distanceField4;
+	private TextField stationToAdd;
+	
 	private Slider slider;
 	private Button showStation;
 	private Button calculateHD;
+	private Button addStation;
+	private Button createGraph;
+	
 	private ListView<String> listStations;
 	private ChoiceBox stations;
-	
+	private BarChart hdGraph;
+	private int numOf0 = 0;
+	private int numOf1 = 0;
+	private int numOf2 = 0;
+	private int numOf3 = 0;
+	private int numOf4 = 0;
+
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -60,25 +84,37 @@ public class Main extends Application {
 			slider.setShowTickLabels(true);
 			slider.setShowTickMarks(true);
 			
+			// Create buttons
 			showStation = new Button("Show Station");
+			addStation = new Button("Add Station");
+			calculateHD = new Button("Calculate HD");
 			listStations = new ListView<String>();
 			compareWith = new Label("Compare with:");
 			stations = new ChoiceBox();
-			calculateHD = new Button("Calculate HD");
-			Label distance0 = new Label("Distance 0");
-			Label distance1 = new Label("Distance 1");
-			Label distance2 = new Label("Distance 2");
-			Label distance3 = new Label("Distance 3");
-			Label distance4 = new Label("Distance 4");
-			TextField distanceField0 = new TextField();
-			TextField distanceField1 = new TextField();
-			TextField distanceField2 = new TextField();
-			TextField distanceField3 = new TextField();
-			TextField distanceField4 = new TextField();
-			Button addStation = new Button("Add Station");
-			TextField stationToAdd = new TextField();
+			createGraph = new Button("Create graph");
 			
+			// Create labels and textFields.
+			distance0 = new Label("Distance 0");
+			distance1 = new Label("Distance 1");
+			distance2 = new Label("Distance 2");
+			distance3 = new Label("Distance 3");
+			distance4 = new Label("Distance 4");
+			distanceField0 = new TextField();
+			distanceField1 = new TextField();
+			distanceField2 = new TextField();
+			distanceField3 = new TextField();
+			distanceField4 = new TextField();
+			stationToAdd = new TextField();
 			
+			createGraph = new Button("Create graph");
+			
+			CategoryAxis xAxis = new CategoryAxis();
+			xAxis.setLabel("Hamming Distance");
+			NumberAxis yAxis = new NumberAxis();
+			yAxis.setLabel("Total Occurances");
+			XYChart.Series hammDistData = new XYChart.Series();
+			hdGraph = new BarChart(xAxis, yAxis);
+		
 			
 			//create a HammingDistance Object
 			HammingDistance hammDistance = new HammingDistance();
@@ -103,6 +139,10 @@ public class Main extends Application {
 		         }
 			});
 			
+			/*
+			 * When the button is pressed a the list of stations that have the same 
+			 * given hamming distance from the given station are show on the listView. 
+			 */
 			showStation.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				 public void handle(ActionEvent event) {
@@ -124,10 +164,17 @@ public class Main extends Application {
 				}
 			});
 			
+			/*
+			 * When the calculateHD is pressed it calculates the number of stations that have 
+			 * the given hamming distance from the station and outputs them to the TextFields.
+			 */
 			calculateHD.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
+					// Get the station id
 					String stid = (String)stations.getValue();
+					
+					// Calculate the number of stations that have the given HD from the stid
 					distanceField0.setText(Integer.toString(
 							hammDistance.numberOfStationsWithHammingDist(stid, 0)));
 					distanceField1.setText(Integer.toString(
@@ -141,17 +188,44 @@ public class Main extends Application {
 				}
 			});
 			
+			/*
+			 * When addStation is pressed the test entered in the stationToAdd Field is added 
+			 * to the list of stations.
+			 */
 			addStation.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
+					// Get the new staton from the TextField
 					String newStid = stationToAdd.getText();
+					
+					// Add station to the list of stations in the HammingDistance object
 					hammDistance.addStation(newStid);
+					// Add station to ChoiceBox list 
 					stations.getItems().add(newStid.toUpperCase());
 					stationToAdd.clear();
 				}
 			});
 			
-			
+			/*
+			 * When createGraph is presssed it creates a bar graph that
+			 */
+			createGraph.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					numOf0 += Integer.parseInt(distanceField0.getText());
+					hammDistData.getData().add(new XYChart.Data("0",numOf0));
+					numOf1 += Integer.parseInt(distanceField1.getText());
+					hammDistData.getData().add(new XYChart.Data("1",numOf1));
+					numOf2 += Integer.parseInt(distanceField2.getText());
+					hammDistData.getData().add(new XYChart.Data("2",numOf2));
+					numOf3 += Integer.parseInt(distanceField3.getText());
+					hammDistData.getData().add(new XYChart.Data("3",numOf3));
+					numOf4 += Integer.parseInt(distanceField4.getText());
+					hammDistData.getData().add(new XYChart.Data("4",numOf4));
+					hdGraph.getData().add(hammDistData);
+					
+				}
+			});
 			
 			
 			
@@ -175,20 +249,12 @@ public class Main extends Application {
 			gridPane.add(distanceField4, 1, 10);
 			gridPane.add(addStation, 0, 11);
 			gridPane.add(stationToAdd, 1, 11);
+			gridPane.add(createGraph, 3, 0);
+			gridPane.add(hdGraph, 3, 1, 1, 4);
 			gridPane.setPadding(gridPadding);
 			gridPane.setHgap(5);
 			gridPane.setVgap(5);
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+						
 			
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
